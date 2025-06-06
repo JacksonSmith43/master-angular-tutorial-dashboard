@@ -152,9 +152,11 @@ p:last-of-type {
   0% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
+
   100% {
     opacity: 1;
   }
@@ -220,4 +222,8 @@ button:hover {
 
 button:hover .icon {
   transform: translateX(4px);
+}
+
+label{
+  display: block;
 }
