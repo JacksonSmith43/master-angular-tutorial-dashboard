@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 export class ServerStatusComponent {
   currentStatus: 'online' | 'offline' | 'unknown' = 'online'; // Only online, offline or unknown are accepted. 
 
-  constructor() {
+  ngOnInit() { // Will be loaded once Angular has initialised all of the components inputs. 
     setInterval(() => {
       const random = Math.random(); // Generates a number between 0 and 0.9999999.
 
