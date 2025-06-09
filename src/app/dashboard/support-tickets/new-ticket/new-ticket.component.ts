@@ -14,7 +14,9 @@ import { ControlComponent } from "../../../shared/control/control.component";
 export class NewTicketComponent {
   @Input() toDo!: string;
 
-  onSubmit() {
 
+  onSubmit(titleInput: HTMLInputElement) {
+    const enteredTitle = titleInput.value;
+    console.log("enteredTitle: ", enteredTitle); // Using dir instead of log, one can see all of the available properties. 
   }
 }
