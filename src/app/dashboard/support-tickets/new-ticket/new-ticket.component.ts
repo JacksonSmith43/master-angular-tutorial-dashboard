@@ -1,4 +1,4 @@
-import { Component, ContentChild, ElementRef, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, ElementRef, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ButtonComponent } from "../../../shared/button/button.component";
@@ -11,8 +11,13 @@ import { ControlComponent } from "../../../shared/control/control.component";
   templateUrl: './new-ticket.component.html',
   styleUrl: './new-ticket.component.css'
 })
-export class NewTicketComponent {
+export class NewTicketComponent implements AfterViewInit {
   private form = viewChild.required<ElementRef<HTMLFormElement>>("form");
+
+  ngAfterViewInit() {
+    console.log("ngAfterViewInit.");
+    console.log("this.form().nativeElement", this.form().nativeElement);
+  }
 
   onSubmit(titleInput: string, textInput: string) {
     console.log("enteredTitle: ", titleInput); // Using dir instead of log, one can see all of the available properties. 
