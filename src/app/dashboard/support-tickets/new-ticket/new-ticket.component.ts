@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChild, ElementRef, viewChild } from '@angular/core';
+import { AfterViewInit, Component, output, ElementRef, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ButtonComponent } from "../../../shared/button/button.component";
@@ -13,6 +13,7 @@ import { ControlComponent } from "../../../shared/control/control.component";
 })
 export class NewTicketComponent implements AfterViewInit {
   private form = viewChild.required<ElementRef<HTMLFormElement>>("form");
+  addTicket = output<{ title: string; text: string }>();
 
   ngAfterViewInit() {
     console.log("ngAfterViewInit.");
@@ -23,6 +24,7 @@ export class NewTicketComponent implements AfterViewInit {
     console.log("enteredTitle: ", titleInput); // Using dir instead of log, one can see all of the available properties. 
     console.log("enteredText: ", textInput);
 
+    this.addTicket.emit({title: titleInput, text: textInput});
     this.form().nativeElement.reset();
   }
 }
