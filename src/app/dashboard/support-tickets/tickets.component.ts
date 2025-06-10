@@ -10,6 +10,7 @@ import { TicketComponent } from "./ticket/ticket.component";
   templateUrl: './tickets.component.html',
   styleUrl: './tickets.component.css'
 })
+
 export class TicketsComponent {
   tickets: Ticket[] = [];
 
@@ -21,8 +22,5 @@ export class TicketsComponent {
       status: "open"
     }
     this.tickets.push(ticket);
-
-    console.log("title: ", ticketData.title);
-    console.log("text: f", ticketData.text);
   }
 }
