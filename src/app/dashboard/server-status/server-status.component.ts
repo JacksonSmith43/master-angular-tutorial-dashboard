@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, DestroyRef, inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, DestroyRef, inject, signal, effect } from '@angular/core';
 
 @Component({
   selector: 'app-server-status',
@@ -9,9 +9,15 @@ import { Component, OnInit, AfterViewInit, OnDestroy, DestroyRef, inject } from 
 })
 
 export class ServerStatusComponent implements OnInit, AfterViewInit, OnDestroy { // implements OnInit is here, so that if ngOnInit were to be spellt incorrectly, the Compiler would pick up on it. 
-  currentStatus: 'online' | 'offline' | 'unknown' = 'online'; // Only online, offline or unknown are accepted. 
+  currentStatus = signal<'online' | 'offline' | 'unknown'>('online'); // Only online, offline or unknown are accepted. 
   private interval?: ReturnType<typeof setInterval>; // This will return exactly the same type as setInterval, which is a number in the browser, but a NodeJS.Timeout in NodeJS.
   private destroyRef = inject(DestroyRef);
+
+  constructor() {
+    effect(() => {
+      console.log("this.currentStatus: ", this.currentStatus());
+    })
+  }
 
   ngOnInit() { // Will be loaded once Angular has initialised all of the components inputs. 
     console.log("ngOnInit");
@@ -20,13 +26,13 @@ export class ServerStatusComponent implements OnInit, AfterViewInit, OnDestroy {
       const random = Math.random(); // Generates a number between 0 and 0.9999999.
 
       if (random < 0.5) {
-        this.currentStatus = 'online';
+        this.currentStatus.set('online');
 
       } else if (random < 0.9) {
-        this.currentStatus = 'offline';
+        this.currentStatus.set('offline');
 
       } else {
-        this.currentStatus = 'unknown';
+        this.currentStatus.set('unknown');
       }
 
     }, 500);
